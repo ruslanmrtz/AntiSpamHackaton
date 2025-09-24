@@ -49,7 +49,7 @@ const SpamModal = ({ email, isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+      <div className="bg-white rounded-lg shadow-xl max-w-7xl w-full max-h-[90vh] overflow-auto">
         {/* Заголовок модала */}
         <div className="bg-gradient-to-r from-red-500 to-red-600 text-white p-6">
           <div className="flex items-center justify-between">
@@ -71,7 +71,7 @@ const SpamModal = ({ email, isOpen, onClose }) => {
         </div>
 
         {/* Содержимое модала */}
-        <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+        <div className="p-6">
           {/* Основная информация */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             {/* Дата и время */}
@@ -80,7 +80,7 @@ const SpamModal = ({ email, isOpen, onClose }) => {
                 <span className="text-xl">📅</span>
                 <h3 className="font-semibold text-gray-900">Дата получения</h3>
               </div>
-              <p className="text-gray-700">{formatTimestamp(email.timestamp)}</p>
+              <p className="text-gray-700">{formatTimestamp(email.date)}</p>
             </div>
 
             {/* Отправитель */}
@@ -102,7 +102,7 @@ const SpamModal = ({ email, isOpen, onClose }) => {
               <h3 className="font-semibold text-gray-900">Тема письма</h3>
             </div>
             <div className="bg-gray-50 rounded-lg p-4">
-              <p className="text-gray-900 text-lg leading-relaxed">{email.title}</p>
+              <p className="text-gray-900 text-lg leading-relaxed">{email.subject}</p>
             </div>
           </div>
 
@@ -125,12 +125,12 @@ const SpamModal = ({ email, isOpen, onClose }) => {
               <span className="text-xl">🛡️</span>
               <h3 className="font-semibold text-gray-900">Анализ угрозы</h3>
             </div>
-            <div className={`rounded-lg p-4 border-2 ${getSpamReasonColor(email.spamReason)}`}>
+            <div className={`rounded-lg p-4 border-2 ${getSpamReasonColor(email.reason)}`}>
               <div className="flex items-start space-x-3">
                 <span className="text-2xl flex-shrink-0">⚠️</span>
                 <div>
                   <h4 className="font-semibold mb-2">Причина блокировки:</h4>
-                  <p className="leading-relaxed">{email.spamReason}</p>
+                  <p className="leading-relaxed">{email.reason}</p>
                 </div>
               </div>
             </div>

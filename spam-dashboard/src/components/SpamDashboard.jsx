@@ -80,7 +80,7 @@ const SpamDashboard = () => {
         // Обновляем ссылку на предыдущие письма ПЕРЕД обновлением состояния
         previousEmailsRef.current = data
         
-        // Обновляем состояние
+        data.reverse();
         setSpamEmails(data);
         setLastUpdated(new Date());
         

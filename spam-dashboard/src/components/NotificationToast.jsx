@@ -93,7 +93,7 @@ const NotificationToast = ({ notification, onClose }) => {
                     <strong>Тема:</strong> {notification.details.title}
                   </p>
                   <p className="text-xs">
-                    <strong>Причина:</strong> {notification.details.spamReason}
+                    <strong>Причина:</strong> {notification.details.reason}
                   </p>
                 </div>
               )}

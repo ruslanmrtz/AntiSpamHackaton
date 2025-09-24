@@ -7,9 +7,9 @@ const SpamCard = ({ email, onClick }) => {
     const date = new Date(timestamp)
     return {
       date: date.toLocaleDateString('ru-RU'),
-      time: date.toLocaleTimeString('ru-RU', { 
-        hour: '2-digit', 
-        minute: '2-digit' 
+      time: date.toLocaleTimeString('ru-RU', {
+        hour: '2-digit',
+        minute: '2-digit'
       })
     }
   }
@@ -17,6 +17,7 @@ const SpamCard = ({ email, onClick }) => {
   const { date, time } = formatTimestamp(email.timestamp)
 
   const truncateText = (text, maxLength) => {
+    if (!text) return;
     if (text.length <= maxLength) return text
     return text.substring(0, maxLength) + '...'
   }
@@ -36,9 +37,8 @@ const SpamCard = ({ email, onClick }) => {
 
   return (
     <div
-      className={`bg-white rounded-lg shadow-sm border border-gray-200 p-6 cursor-pointer transition-all duration-200 hover:shadow-md hover:border-gray-300 ${
-        isHovered ? 'transform scale-105' : ''
-      }`}
+      className={`bg-white rounded-lg shadow-sm border border-gray-200 p-6 cursor-pointer transition-all duration-200 hover:shadow-md hover:border-gray-300 ${isHovered ? 'transform scale-105' : ''
+        }`}
       onClick={() => onClick(email)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -47,7 +47,7 @@ const SpamCard = ({ email, onClick }) => {
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
           <h3 className="text-lg font-semibold text-gray-900 mb-2 leading-tight">
-            {truncateText(email.title, 50)}
+            {truncateText(email.subject, 50)}
           </h3>
           <div className="flex items-center text-sm text-gray-500 space-x-2">
             <span>📅 {date}</span>
@@ -68,6 +68,14 @@ const SpamCard = ({ email, onClick }) => {
           </span>
         </div>
       </div>
+      <div className="mb-4">
+        <div className="flex items-center space-x-2">
+          <span className="text-sm font-medium text-gray-600">Кому:</span>
+          <span className="text-sm text-gray-900 font-mono bg-gray-50 px-2 py-1 rounded">
+            {email.recipient}
+          </span>
+        </div>
+      </div>
 
       {/* Превью текста */}
       <div className="mb-4">
@@ -78,7 +86,7 @@ const SpamCard = ({ email, onClick }) => {
 
       {/* Причина спама */}
       <div className="mb-4">
-        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getSpamReasonColor(email.spamReason)}`}>
+        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getSpamReasonColor(email.reason)}`}>
           ⚠️ {truncateText(email.spamReason, 30)}
         </span>
       </div>
